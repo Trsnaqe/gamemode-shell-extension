@@ -4,9 +4,8 @@
 
 This GNOME Shell extension provides a convenient indicator for Feral's GameMode. The extension displays the status of GameMode, the number of active clients, and a list of these clients.
 <p align="center">
-  <b>Elevate Your Linux Gaming Experience with ProtonDB Community Extension</b>
   <br/>
-  <img src="https://github.com/trsnaqe/gamemode-shell-extension/blob/main/icon/icon.jpeg?raw=true" alt="GameMode Shell Extension Logo"/>
+  <img src="https://github.com/trsnaqe/gamemode-shell-extension/blob/main/icons/icon_256.jpeg?raw=true" alt="GameMode Shell Extension Logo"/>
 </p>
 
 
