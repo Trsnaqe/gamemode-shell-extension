@@ -24,18 +24,25 @@ sources = [
   'metadata.json'
 ]
 
+# Schema file
+schema_file = 'settings/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml'
+
 # Install source files
 install_data(
     sources,
     install_dir: extensiondir
 )
 
-
 # Install schema
 install_data(
-    'settings/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml',
-    rename: 'org.gnome.shell.extensions.gamemodeshellextension.gschema.xml',
+    schema_file,
     install_dir: schemadir
+)
+
+# Copy schema to extension directory
+install_data(
+    schema_file,
+    install_dir: extensiondir
 )
 
 # Build completion message

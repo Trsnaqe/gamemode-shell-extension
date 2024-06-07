@@ -1,6 +1,6 @@
 import GObject from "gi://GObject";
-const { Gio, St } = imports.gi;
-
+import Gio from "gi://Gio";
+import St from "gi://St";
 import {
   Extension,
   gettext as _,
@@ -163,5 +163,6 @@ export default class IndicatorExampleExtension extends Extension {
   disable() {
     this._indicator.destroy();
     this._indicator = null;
+    this._settings = null;
   }
 }

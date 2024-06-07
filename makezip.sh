@@ -22,12 +22,28 @@ build_and_package() {
     extensiondir="$installdir/share/gnome-shell/extensions/${uuid}"
     mkdir -p "$zipdir"
 
-    sources=(client.js extension.js stylesheet.css metadata.json)
+    sources=(client.js extension.js stylesheet.css metadata.json settings/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml)
+
+    # Copy schema to the extension directory
+    cp "$srcdir/settings/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml" "$extensiondir/"
 
     # Package the extension
     gnome-extensions pack ${sources[@]/#/--extra-source=} --out-dir="$zipdir" "$extensiondir"
 
     echo "Build and packaging completed successfully."
+    
+    # Install the schema
+    sudo install -Dm644 "$srcdir/settings/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml" "$schemadir/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml"
+    
+    # Compile the schemas
+    sudo glib-compile-schemas "$schemadir"
+    
+    echo "Schema installed and compiled successfully."
+}
+
+# Function to check if the schema is installed
+is_schema_installed() {
+    gsettings list-schemas | grep -q 'org.gnome.shell.extensions.gamemodeshellextension'
 }
 
 # Function to install the extension
@@ -43,18 +59,18 @@ install_extension() {
 
     echo "Extension installed to ${targetdir}"
 
+    # Check if the schema is installed
+    if is_schema_installed; then
+        echo "Schema is installed."
+    else
+        echo "Schema is not installed."
+        exit 1
+    fi
+
     # Enable the extension
     gnome-extensions enable "$uuid"
 
     echo "Extension enabled."
-    
-    # Install the schema
-    sudo install -Dm644 "$srcdir/settings/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml" "$schemadir/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml"
-    
-    # Compile the schemas
-    sudo glib-compile-schemas "$schemadir"
-
-    echo "Schema installed and compiled successfully."
 }
 
 # Function to remove build files

@@ -64,7 +64,7 @@ export class Client extends EventEmitter {
       this._updateClientCount();
       if (this._readyCallback) this._readyCallback(this);
     } catch (e) {
-      log(`Failed to initialize GameMode client: ${e.message}`);
+      console.log(`Failed to initialize GameMode client: ${e.message}`);
     }
   }
 
@@ -92,8 +92,9 @@ export class Client extends EventEmitter {
   }
 
   async _onGameRegistered(proxy, sender_name, [pid, objectPath]) {
-    const process_name =await this._getProcessNameByPid(pid);
-    if(process_name) this.process_map.set(pid, { name:process_name, path:objectPath });
+    const process_name = await this._getProcessNameByPid(pid);
+    if (process_name)
+      this.process_map.set(pid, { name: process_name, path: objectPath });
     this.emit("game-registered", pid, objectPath);
   }
 
@@ -105,28 +106,25 @@ export class Client extends EventEmitter {
   _onPropertiesChanged(proxy, properties) {
     const props = properties.deep_unpack();
     if (props.ClientCount !== undefined) {
-        const previous_count = this.client_count;
-        // Extract the integer from the GLib.Variant
-        this.client_count = props.ClientCount.deep_unpack();
-        this._emitStateChange(previous_count);
+      const previous_count = this.client_count;
+      // Extract the integer from the GLib.Variant
+      this.client_count = props.ClientCount.deep_unpack();
+      this._emitStateChange(previous_count);
     }
-}
+  }
 
-_emitStateChange(previous_count) {
+  _emitStateChange(previous_count) {
     const previous_state = previous_count > 0;
-     this.current_state = this.client_count > 0;
-
+    this.current_state = this.client_count > 0;
 
     if (previous_state !== this.current_state) {
-
-        this.emit("state-changed");
+      this.emit("state-changed");
     }
 
     if (previous_count !== this.client_count) {
-        this.emit("count-changed", this.client_count);
+      this.emit("count-changed", this.client_count);
     }
-}
-
+  }
 
   close() {
     this.disconnectAll();
@@ -180,17 +178,28 @@ _emitStateChange(previous_count) {
 
   async _getProcessNameByPid(pid) {
     try {
-      const [ok, out, err, exit] = GLib.spawn_command_line_sync(
-        `ps -p ${pid} -o comm=`
-      );
-      if (ok && exit === 0) {
-        return out.toString().trim() || null
-      } else {
-        log(`Failed to get process name for PID ${pid}: ${err.toString()}`);
-      }
+      const subprocess = new Gio.Subprocess({
+        argv: ["ps", "-p", pid.toString(), "-o", "comm="],
+        flags:
+          Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDERR_PIPE,
+      });
+      await subprocess.init(null);
+
+      const stdout = await new Promise((resolve, reject) => {
+        subprocess.communicate_utf8_async(null, null, (proc, res) => {
+          try {
+            const [, out] = proc.communicate_utf8_finish(res);
+            resolve(out);
+          } catch (e) {
+            reject(e);
+          }
+        });
+      });
+
+      return stdout.trim() || null;
     } catch (e) {
-      log(`Error getting process name for PID ${pid}: ${e.message}`);
+      console.log(`Error getting process name for PID ${pid}: ${e.message}`);
     }
-    return null
+    return null;
   }
 }

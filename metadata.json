@@ -5,5 +5,9 @@
   "shell-version": [
     "45",
     "46"
-  ]
-}
+  ],
+  "settings-schema":"org.gnome.shell.extensions.gamemodeshellextension",
+  "url": "https://github.com/trsnaqe/gamemode-shell-extension",
+  "donations": {
+    "buymeacoffee": "trsnaqe"
+}}
