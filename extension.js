@@ -51,19 +51,19 @@ const Indicator = GObject.registerClass(
 
       this._notificationLaunchToggle = new PopupMenu.PopupSwitchMenuItem(
         _("Gamemode is Enabled"),
-        this._settings.showLaunchNotification
+        this._settings.get_boolean('show-launch-notification')
       );
       this._notificationLaunchToggle.connect("toggled", (item, value) => {
-        this._settings.showLaunchNotification = value;
+        this._settings.set_boolean('show-launch-notification', value);
       });
       notificationSection.menu.addMenuItem(this._notificationLaunchToggle);
 
       this._notificationCloseToggle = new PopupMenu.PopupSwitchMenuItem(
         _("Gamemode is Disabled"),
-        this._settings.showCloseNotification
+        this._settings.get_boolean('show-close-notification')
       );
       this._notificationCloseToggle.connect("toggled", (item, value) => {
-        this._settings.showCloseNotification = value;
+        this._settings.set_boolean('show-close-notification', value);
       });
       notificationSection.menu.addMenuItem(this._notificationCloseToggle);
     }
@@ -108,12 +108,12 @@ const Indicator = GObject.registerClass(
     _handleStatusChange() {
       if (this._client.current_state) {
         this._statusItem.label.set_text(_("GameMode is On"));
-        if (this._settings.showLaunchNotification) {
+        if (this._settings.get_boolean('show-launch-notification')) {
           Main.notify(_("GameMode is Enabled!"));
         }
       } else {
         this._statusItem.label.set_text(_("GameMode is Off"));
-        if (this._settings.showCloseNotification) {
+        if (this._settings.get_boolean('show-close-notification')) {
           Main.notify(_("GameMode is Disabled!"));
         }
       }
@@ -153,10 +153,9 @@ const Indicator = GObject.registerClass(
 
 export default class IndicatorExampleExtension extends Extension {
   enable() {
-    this._settings = {
-      showLaunchNotification: true,
-      showCloseNotification: true,
-    };
+    this._settings = new Gio.Settings({
+      schema_id: 'org.gnome.shell.extensions.gamemodeshellextension'
+    });
     this._indicator = new Indicator(this._settings);
     Main.panel.addToStatusArea(this.uuid, this._indicator);
   }

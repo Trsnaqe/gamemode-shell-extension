@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.gamemodeshellextension" path="/org/gnome/shell/extensions/gamemodeshellextension/">
+    <key name="show-launch-notification" type="b">
+      <default>true</default>
+      <summary>Show notification when GameMode is enabled</summary>
+    </key>
+    <key name="show-close-notification" type="b">
+      <default>false</default>
+      <summary>Show notification when GameMode is disabled</summary>
+    </key>
+  </schema>
+</schemalist>

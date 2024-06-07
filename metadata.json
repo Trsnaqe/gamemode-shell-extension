@@ -1,6 +1,6 @@
 {
   "name": "GameMode Shell Extension",
-  "description": "help",
+  "description": "GameMode Status Indicator for GNOME Shell!",
   "uuid": "gamemodeshellextension@trsnaqe.com",
   "shell-version": [
     "45"

@@ -112,19 +112,16 @@ export class Client extends EventEmitter {
     }
 }
 
-// Function to emit state change
 _emitStateChange(previous_count) {
     const previous_state = previous_count > 0;
      this.current_state = this.client_count > 0;
 
 
-    // Emit state-changed signal if state has changed
     if (previous_state !== this.current_state) {
 
         this.emit("state-changed");
     }
 
-    // Emit count-changed signal if client count has changed
     if (previous_count !== this.client_count) {
         this.emit("count-changed", this.client_count);
     }
