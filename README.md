@@ -1,4 +1,5 @@
 # GameMode GNOME Shell Extension
+[Extension Page](https://extensions.gnome.org/extension/7074/gamemode-shell-extension/)
 
 ## Overview
 
@@ -32,7 +33,8 @@ This GNOME Shell extension provides a convenient indicator for Feral's GameMode.
 
 
 # Installation
-
+## Through Gnome Extension Store
+[Extension Page](https://extensions.gnome.org/extension/7074/gamemode-shell-extension/)
 ## Install Feral GameMode:
   If GameMode is not installed you will not be able to use the extension, to install GameMode please refer to:
   [Feral GameMode Docs](https://github.com/FeralInteractive/gamemode?tab=readme-ov-file#build-and-install-gamemode)
@@ -51,8 +53,8 @@ This GNOME Shell extension provides a convenient indicator for Feral's GameMode.
 
 1. **Clone the Repository**:
     ```bash
-    git clone https://github.com/yourusername/gamemodeshellextension.git
-    cd gamemodeshellextension
+    git clone https://github.com/trsnaqe/gamemode-shell-extension.git
+    cd gamemode-shell-extension
     ```
 
 2. **Build and Package the Extension**:
