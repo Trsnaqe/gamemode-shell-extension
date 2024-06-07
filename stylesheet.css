@@ -1,0 +1,12 @@
+.unavailable-text {
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+}
+.system-status-icon.gamemode-active {
+  color: green;
+}
+.status-item{ 
+  color: rgb(255, 255, 255);
+  font-style:oblique;
+  font-weight:bolder;
+}

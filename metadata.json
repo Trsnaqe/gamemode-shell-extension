@@ -1,0 +1,8 @@
+{
+  "name": "GameMode Shell Extension",
+  "description": "help",
+  "uuid": "gamemodeshellextension@trsnaqe.com",
+  "shell-version": [
+    "45"
+  ]
+}
