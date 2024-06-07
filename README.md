@@ -3,6 +3,12 @@
 ## Overview
 
 This GNOME Shell extension provides a convenient indicator for Feral's GameMode. The extension displays the status of GameMode, the number of active clients, and a list of these clients.
+<p align="center">
+  <b>Elevate Your Linux Gaming Experience with ProtonDB Community Extension</b>
+  <br/>
+  <img src="https://github.com/trsnaqe/gamemode-shell-extension/blob/main/icon/icon.jpeg?raw=true" alt="GameMode Shell Extension Logo"/>
+</p>
+
 
 ## Features
 
@@ -14,15 +20,19 @@ This GNOME Shell extension provides a convenient indicator for Feral's GameMode.
 ## Screenshots
 
 ![Extension Enabled](https://i.imgur.com/SjFEuwi.png)
+
 *Figure 1: GameMode is enabled and showing active clients.*
 
 ![Extension Disabled](https://i.imgur.com/simnnAn.png)
+
 *Figure 2: GameMode is disabled.*
 
 ![Extension Enabled Notification](https://i.imgur.com/ejQXPYh.png)
+
 *Figure 3: GameMode enabled notification.*
 
 ![Extension Settings Menu](https://i.imgur.com/dgSVH1v.png)
+
 *Figure 4: GameMode Settings Menu.*
 
 
@@ -52,7 +62,7 @@ This GNOME Shell extension provides a convenient indicator for Feral's GameMode.
 
 2. **Build and Package the Extension**:
     ```bash
-    ./makezip.sh
+    ./makezip.sh build
     ```
 3. **Move and Extract Zip into Extensions**:
     ```bash
@@ -80,6 +90,7 @@ chmod +x ./makezip.sh
 ## Makezip script
 The makezip.sh script simplifies the build and installation process of the extension. It includes the following commands:
 
+- **build**: Builds the extansion into a zip                                                                                                                        .
 - **install**: Builds the extension, installs it, installs the schema, and activates the extension.
 - **remove**: Removes the build files.
 - **purge**: Removes everything related to the extension.

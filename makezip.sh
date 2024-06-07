@@ -91,6 +91,9 @@ remove_extension() {
 
 # Check for arguments
 case "$1" in
+    build)
+        build_and_package
+        ;;
     install)
         build_and_package
         install_extension
@@ -104,7 +107,7 @@ case "$1" in
         remove_extension
         ;;
     *)
-        echo "Usage: $0 {install|remove|purge}"
+        echo "Usage: $0 {build|install|remove|purge}"
         exit 1
         ;;
 esac

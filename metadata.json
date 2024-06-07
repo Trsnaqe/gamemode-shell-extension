@@ -3,6 +3,7 @@
   "description": "GameMode Status Indicator for GNOME Shell!",
   "uuid": "gamemodeshellextension@trsnaqe.com",
   "shell-version": [
-    "45"
+    "45",
+    "46"
   ]
 }
