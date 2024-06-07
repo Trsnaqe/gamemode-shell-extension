@@ -39,11 +39,5 @@ install_data(
     install_dir: schemadir
 )
 
-# Copy schema to extension directory
-install_data(
-    schema_file,
-    install_dir: extensiondir
-)
-
 # Build completion message
 message('Project version: @0@'.format(meson.project_version()))

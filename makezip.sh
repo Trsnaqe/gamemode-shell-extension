@@ -22,13 +22,13 @@ build_and_package() {
     extensiondir="$installdir/share/gnome-shell/extensions/${uuid}"
     mkdir -p "$zipdir"
 
-    sources=(client.js extension.js stylesheet.css metadata.json settings/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml)
+    sources=(client.js extension.js stylesheet.css metadata.json)
 
     # Copy schema to the extension directory
     cp "$srcdir/settings/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml" "$extensiondir/"
 
     # Package the extension
-    gnome-extensions pack ${sources[@]/#/--extra-source=} --out-dir="$zipdir" "$extensiondir"
+    gnome-extensions pack ${sources[@]/#/--extra-source=} --schema="org.gnome.shell.extensions.gamemodeshellextension.gschema.xml" --out-dir="$zipdir" "$extensiondir"
 
     echo "Build and packaging completed successfully."
     
