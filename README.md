@@ -1,7 +1,7 @@
 # GameMode GNOME Shell Extension
 <p align="center">
   <br/>
-  <img src="https://github.com/trsnaqe/gamemode-shell-extension/blob/main/icons/icon_256.jpeg?raw=true" alt="GameMode Shell Extension Logo"/>
+  <img src="https://github.com/trsnaqe/gamemode-shell-extension/blob/main/icons/icon.png?raw=true" alt="GameMode Shell Extension Logo"/>
 </p>
 
 ## Overview
