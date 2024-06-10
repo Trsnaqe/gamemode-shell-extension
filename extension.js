@@ -1,6 +1,7 @@
 import GObject from "gi://GObject";
 import Gio from "gi://Gio";
 import St from "gi://St";
+import Clutter from "gi://Clutter";
 import {
   Extension,
   gettext as _,
@@ -13,7 +14,7 @@ import * as GameMode from "./client.js";
 const Indicator = GObject.registerClass(
   class Indicator extends PanelMenu.Button {
     _init(settings) {
-      super._init(0.0, _("My Shiny Indicator"));
+      super._init(0.0, _("GameMode Status Indicator"));
       this._settings = settings;
       this._client = null;
 
@@ -24,7 +25,7 @@ const Indicator = GObject.registerClass(
 
     _addIcon() {
       this._icon = new St.Icon({
-        icon_name: "applications-games",
+        icon_name: "applications-games-symbolic",
         style_class: "system-status-icon",
       });
       this.add_child(this._icon);
@@ -109,12 +110,12 @@ const Indicator = GObject.registerClass(
       if (this._client.current_state) {
         this._statusItem.label.set_text(_("GameMode is On"));
         if (this._settings.get_boolean('show-launch-notification')) {
-          Main.notify(_("GameMode is Enabled!"));
+          Main.notify(_("GameMode Status"), _("GameMode is Enabled!"));
         }
       } else {
         this._statusItem.label.set_text(_("GameMode is Off"));
         if (this._settings.get_boolean('show-close-notification')) {
-          Main.notify(_("GameMode is Disabled!"));
+          Main.notify(_("GameMode Status"), _("GameMode is Disabled!"));
         }
       }
       this._updateIcon(this._client.current_state);
