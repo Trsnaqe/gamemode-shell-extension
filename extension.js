@@ -1,7 +1,6 @@
 import GObject from "gi://GObject";
 import Gio from "gi://Gio";
 import St from "gi://St";
-import Clutter from "gi://Clutter";
 import {
   Extension,
   gettext as _,

@@ -1,5 +1,4 @@
 import Gio from "gi://Gio";
-import GLib from "gi://GLib";
 import { EventEmitter } from "resource:///org/gnome/shell/misc/signals.js";
 
 const GameModeClientInterface = `
