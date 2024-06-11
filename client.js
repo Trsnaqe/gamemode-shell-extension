@@ -117,7 +117,7 @@ export class Client extends EventEmitter {
     this.current_state = this.client_count > 0;
 
     if (previous_state !== this.current_state) {
-      this.emit("state-changed");
+      this.emit("state-changed", this.current_state);
     }
 
     if (previous_count !== this.client_count) {

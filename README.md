@@ -76,8 +76,13 @@ sudo glib-compile-schemas /usr/share/glib-2.0/schemas
  5. **Enable Extension**:
     ```bash
     gnome-extensions enable gamemodeshellextension@trsnaqe.com
-
     ```
+6. **Restart the Shell**:
+    - If you are using x11, alt+f2 then type
+    ```bash
+    r
+    ```
+    - If you are using wayland, restart the session
 **Note**: If makezip.sh does not work, you may need to give it executable permissions:
 
 ```bash

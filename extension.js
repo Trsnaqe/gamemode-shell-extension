@@ -153,9 +153,7 @@ const Indicator = GObject.registerClass(
 
 export default class IndicatorExampleExtension extends Extension {
   enable() {
-    this._settings = new Gio.Settings({
-      schema_id: 'org.gnome.shell.extensions.gamemodeshellextension'
-    });
+    this._settings = this.getSettings();
     this._indicator = new Indicator(this._settings);
     Main.panel.addToStatusArea(this.uuid, this._indicator);
   }
