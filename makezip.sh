@@ -15,7 +15,7 @@ zipname='gamemodeshellextension@trsnaqe.com.shell-extension.zip'
 # Function to build and package the extension
 build_and_package() {
     # Meson setup and install
-    meson setup --prefix="$installdir" "$srcdir" "$builddir"
+    meson setup --prefix=$installdir $srcdir $builddir
     meson install -C "$builddir"
 
     # Prepare for packaging
@@ -59,6 +59,9 @@ install_extension() {
 
     echo "Extension installed to ${targetdir}"
 
+    # Compile the schema within the extension directory
+    glib-compile-schemas "${targetdir}/schemas"
+
     # Check if the schema is installed
     if is_schema_installed; then
         echo "Schema is installed."
@@ -72,6 +75,7 @@ install_extension() {
 
     echo "Extension enabled."
 }
+
 
 # Function to remove build files
 remove_build_files() {

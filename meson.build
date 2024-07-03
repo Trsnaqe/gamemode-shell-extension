@@ -13,6 +13,7 @@ gnome = import('gnome')
 
 # Directories
 datadir = get_option('datadir')
+prefix = get_option('prefix')
 extensiondir = join_paths(datadir, 'gnome-shell', 'extensions', uuid)
 schemadir = join_paths(datadir, 'glib-2.0', 'schemas')
 
@@ -38,6 +39,12 @@ install_data(
 install_data(
     schema_file,
     install_dir: schemadir
+)
+
+# Compile schema
+meson.add_install_script(
+  'scripts/compile-schema.sh',
+  join_paths(prefix, schemadir)
 )
 
 # Build completion message
