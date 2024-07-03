@@ -21,7 +21,8 @@ sources = [
   'client.js',
   'extension.js',
   'stylesheet.css',
-  'metadata.json'
+  'metadata.json',
+  'prefs.js'
 ]
 
 # Schema file

@@ -12,14 +12,16 @@ import * as GameMode from "./client.js";
 
 const Indicator = GObject.registerClass(
   class Indicator extends PanelMenu.Button {
-    _init(settings) {
+    _init(extension, settings) {
       super._init(0.0, _("GameMode Status Indicator"));
+      this._extension = extension;
       this._settings = settings;
       this._client = null;
 
       this._addIcon();
       this._createMenuItems();
       this._initializeClient();
+      this._observeSettings();
     }
 
     _addIcon() {
@@ -28,6 +30,10 @@ const Indicator = GObject.registerClass(
         style_class: "system-status-icon",
       });
       this.add_child(this._icon);
+
+      if (this._settings.get_boolean("show-icon-only-when-active")) {
+        this._icon.hide();
+      }
     }
 
     _createMenuItems() {
@@ -40,7 +46,35 @@ const Indicator = GObject.registerClass(
         _("Active Clients: 0")
       );
       this.menu.addMenuItem(this._clientSection);
+
       this._addNotificationSettings();
+      this._addVisibilitySettings();
+      this._addPreferencesButton();
+    }
+
+    _initializeClient() {
+      try {
+        this._client = new GameMode.Client(null);
+        this._client.connect(
+          "count-changed",
+          this._updateClientList.bind(this)
+        );
+        this._client.connect(
+          "game-registered",
+          this._updateClientList.bind(this)
+        );
+        this._client.connect(
+          "game-unregistered",
+          this._updateClientList.bind(this)
+        );
+        this._client.connect(
+          "state-changed",
+          this._handleStatusChange.bind(this)
+        );
+      } catch (e) {
+        this._handleClientInitializationError();
+      }
+      if (!this._client) this._handleClientInitializationError();
     }
 
     _addNotificationSettings() {
@@ -50,41 +84,44 @@ const Indicator = GObject.registerClass(
       this.menu.addMenuItem(notificationSection);
 
       this._notificationLaunchToggle = new PopupMenu.PopupSwitchMenuItem(
-        _("Gamemode is Enabled"),
-        this._settings.get_boolean('show-launch-notification')
+        _("GameMode is Enabled"),
+        this._settings.get_boolean("show-launch-notification")
       );
       this._notificationLaunchToggle.connect("toggled", (item, value) => {
-        this._settings.set_boolean('show-launch-notification', value);
+        this._settings.set_boolean("show-launch-notification", value);
       });
       notificationSection.menu.addMenuItem(this._notificationLaunchToggle);
 
       this._notificationCloseToggle = new PopupMenu.PopupSwitchMenuItem(
-        _("Gamemode is Disabled"),
-        this._settings.get_boolean('show-close-notification')
+        _("GameMode is Disabled"),
+        this._settings.get_boolean("show-close-notification")
       );
       this._notificationCloseToggle.connect("toggled", (item, value) => {
-        this._settings.set_boolean('show-close-notification', value);
+        this._settings.set_boolean("show-close-notification", value);
       });
       notificationSection.menu.addMenuItem(this._notificationCloseToggle);
     }
 
-    _initializeClient() {
-      try {
-        this._client = new GameMode.Client(null);
-        this._client.connect("count-changed", () => {});
-        this._client.connect("game-registered", (pid, objectPath) => {
-          this._updateClientList();
-        });
-        this._client.connect("game-unregistered", (pid, objectPath) => {
-          this._updateClientList();
-        });
-        this._client.connect("state-changed", () => {
-          this._handleStatusChange();
-        });
-      } catch (e) {
-        this._handleClientInitializationError();
-      }
-      if (!this._client) this._handleClientInitializationError();
+    _addVisibilitySettings() {
+      const visibilitySection = new PopupMenu.PopupSubMenuMenuItem(
+        _("Visibility Settings")
+      );
+      this.menu.addMenuItem(visibilitySection);
+
+      this._iconVisibilityToggle = new PopupMenu.PopupSwitchMenuItem(
+        _("Show Icon Only When Active"),
+        this._settings.get_boolean("show-icon-only-when-active")
+      );
+      this._iconVisibilityToggle.connect("toggled", (item, value) => {
+        this._settings.set_boolean("show-icon-only-when-active", value);
+      });
+      visibilitySection.menu.addMenuItem(this._iconVisibilityToggle);
+    }
+
+    _addPreferencesButton() {
+      this.menu.addAction(_("Settings Menu"), () => {
+        this._extension.openPreferences();
+      });
     }
 
     _handleClientInitializationError() {
@@ -106,26 +143,51 @@ const Indicator = GObject.registerClass(
     }
 
     _handleStatusChange() {
-      if (this._client.current_state) {
+      const isActive = this._client.current_state;
+
+      if (isActive) {
         this._statusItem.label.set_text(_("GameMode is On"));
-        if (this._settings.get_boolean('show-launch-notification')) {
+        if (this._settings.get_boolean("show-launch-notification")) {
           Main.notify(_("GameMode Status"), _("GameMode is Enabled!"));
         }
       } else {
         this._statusItem.label.set_text(_("GameMode is Off"));
-        if (this._settings.get_boolean('show-close-notification')) {
+        if (this._settings.get_boolean("show-close-notification")) {
           Main.notify(_("GameMode Status"), _("GameMode is Disabled!"));
         }
       }
-      this._updateIcon(this._client.current_state);
+      this._updateIcon(isActive);
+    }
+
+    _observeSettings() {
+      this._settings.connect("changed::show-icon-only-when-active", () => {
+        this._updateIcon(this._client.current_state);
+      });
+      this._settings.connect("changed::show-launch-notification", () => {
+        const showLaunchNotification = this._settings.get_boolean(
+          "show-launch-notification"
+        );
+        this._notificationLaunchToggle.setToggleState(showLaunchNotification);
+      });
+      this._settings.connect("changed::show-close-notification", () => {
+        const showCloseNotification = this._settings.get_boolean(
+          "show-close-notification"
+        );
+        this._notificationCloseToggle.setToggleState(showCloseNotification);
+      });
     }
 
     _updateIcon(isActive) {
+      const showIconOnlyWhenActive = this._settings.get_boolean(
+        "show-icon-only-when-active"
+      );
       if (isActive) {
         this._icon.add_style_class_name("gamemode-active");
+        this._icon.show();
       } else {
         this._icon.remove_style_class_name("gamemode-active");
       }
+      this.visible = !showIconOnlyWhenActive || isActive;
     }
 
     _updateClientList() {
@@ -151,10 +213,10 @@ const Indicator = GObject.registerClass(
   }
 );
 
-export default class IndicatorExampleExtension extends Extension {
+export default class GameModeShellExtension extends Extension {
   enable() {
     this._settings = this.getSettings();
-    this._indicator = new Indicator(this._settings);
+    this._indicator = new Indicator(this, this._settings);
     Main.panel.addToStatusArea(this.uuid, this._indicator);
   }
 

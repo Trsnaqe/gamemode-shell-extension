@@ -9,5 +9,9 @@
       <default>false</default>
       <summary>Show notification when GameMode is disabled</summary>
     </key>
+    <key name="show-icon-only-when-active" type="b">
+      <default>false</default>
+      <summary>Show icon only when GameMode is active</summary>
+    </key>
   </schema>
 </schemalist>
