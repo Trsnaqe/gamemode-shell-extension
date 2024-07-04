@@ -161,6 +161,10 @@ const Indicator = GObject.registerClass(
 
     _observeSettings() {
       this._settings.connect("changed::show-icon-only-when-active", () => {
+        const iconVisibilitySetting = this._settings.get_boolean(
+          "show-icon-only-when-active"
+        );
+        this._iconVisibilityToggle.setToggleState(iconVisibilitySetting);
         this._updateIcon(this._client.current_state);
       });
       this._settings.connect("changed::show-launch-notification", () => {
