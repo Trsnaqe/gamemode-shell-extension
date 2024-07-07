@@ -32,7 +32,7 @@ const Indicator = GObject.registerClass(
       this.add_child(this._icon);
 
       if (this._settings.get_boolean("show-icon-only-when-active")) {
-        this._icon.hide();
+        this.visible = false;
       }
     }
 
@@ -165,7 +165,7 @@ const Indicator = GObject.registerClass(
           "show-icon-only-when-active"
         );
         this._iconVisibilityToggle.setToggleState(iconVisibilitySetting);
-        this._updateIcon(this._client.current_state);
+        this.visible = !iconVisibilitySetting;
       });
       this._settings.connect("changed::show-launch-notification", () => {
         const showLaunchNotification = this._settings.get_boolean(
@@ -182,15 +182,16 @@ const Indicator = GObject.registerClass(
     }
 
     _updateIcon(isActive) {
-      const showIconOnlyWhenActive = this._settings.get_boolean(
-        "show-icon-only-when-active"
-      );
       if (isActive) {
         this._icon.add_style_class_name("gamemode-active");
-        this._icon.show();
       } else {
         this._icon.remove_style_class_name("gamemode-active");
       }
+      
+      const showIconOnlyWhenActive = this._settings.get_boolean(
+        "show-icon-only-when-active"
+      );
+
       this.visible = !showIconOnlyWhenActive || isActive;
     }
 
