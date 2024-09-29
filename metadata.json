@@ -4,7 +4,8 @@
   "uuid": "gamemodeshellextension@trsnaqe.com",
   "shell-version": [
     "45",
-    "46"
+    "46",
+    "47"
   ],
   "settings-schema":"org.gnome.shell.extensions.gamemodeshellextension",
   "url": "https://github.com/trsnaqe/gamemode-shell-extension",
