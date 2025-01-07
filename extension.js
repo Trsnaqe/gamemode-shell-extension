@@ -31,6 +31,9 @@ const Indicator = GObject.registerClass(
       });
       this.add_child(this._icon);
 
+      const inactiveColor = this._settings.get_string("inactive-color");
+      this._icon.set_style('color: ' + inactiveColor + ';');
+
       if (this._settings.get_boolean("show-icon-only-when-active")) {
         this.visible = false;
       }
@@ -116,6 +119,12 @@ const Indicator = GObject.registerClass(
         this._settings.set_boolean("show-icon-only-when-active", value);
       });
       visibilitySection.menu.addMenuItem(this._iconVisibilityToggle);
+
+      const colorSettingsItem = new PopupMenu.PopupMenuItem(_("Color Settings"));
+      this.menu.addMenuItem(colorSettingsItem);
+      colorSettingsItem.connect('activate', () => {
+        this._extension.openPreferences();
+      });
     }
 
     _addPreferencesButton() {
@@ -179,14 +188,27 @@ const Indicator = GObject.registerClass(
         );
         this._notificationCloseToggle.setToggleState(showCloseNotification);
       });
+      
+      this._settings.connect("changed::active-color", () => {
+        if (this._client && this._client.current_state) {
+          const activeColor = this._settings.get_string("active-color");
+          this._icon.set_style('color: ' + activeColor + ';');
+        }
+      });
+      
+      this._settings.connect("changed::inactive-color", () => {
+        if (this._client && !this._client.current_state) {
+          const inactiveColor = this._settings.get_string("inactive-color");
+          this._icon.set_style('color: ' + inactiveColor + ';');
+        }
+      });
     }
 
     _updateIcon(isActive) {
-      if (isActive) {
-        this._icon.add_style_class_name("gamemode-active");
-      } else {
-        this._icon.remove_style_class_name("gamemode-active");
-      }
+      const activeColor = this._settings.get_string("active-color");
+      const inactiveColor = this._settings.get_string("inactive-color");
+      
+      this._icon.set_style('color: ' + (isActive ? activeColor : inactiveColor) + ';');
       
       const showIconOnlyWhenActive = this._settings.get_boolean(
         "show-icon-only-when-active"

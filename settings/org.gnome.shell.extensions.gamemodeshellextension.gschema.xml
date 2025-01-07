@@ -13,5 +13,15 @@
       <default>false</default>
       <summary>Show icon only when GameMode is active</summary>
     </key>
+    <key type="s" name="active-color">
+      <default>"rgb(115,210,22)"</default>
+      <summary>Active icon tint</summary>
+      <description>The color to use when GameMode is active.</description>
+    </key>
+    <key type="s" name="inactive-color">
+      <default>"rgb(255,255,255)"</default>
+      <summary>Inactive icon tint</summary>
+      <description>The color to use when GameMode is inactive.</description>
+    </key>
   </schema>
 </schemalist>
