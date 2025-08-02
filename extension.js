@@ -253,7 +253,7 @@ const Indicator = GObject.registerClass(
           this._dndManager.turnDndOn();
         }
       } catch (e) {
-        log(`GameMode Extension: Failed to enable Do Not Disturb mode: ${e.message}`);
+        console.log(`GameMode Extension: Failed to enable Do Not Disturb mode: ${e.message}`);
       }
     }
 
@@ -267,7 +267,7 @@ const Indicator = GObject.registerClass(
           this._extensionModifiedDoNotDisturb = false;
         }
       } catch (e) {
-        log(`GameMode Extension: Failed to disable Do Not Disturb mode: ${e.message}`);
+        console.log(`GameMode Extension: Failed to disable Do Not Disturb mode: ${e.message}`);
       }
     }
 
