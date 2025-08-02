@@ -1,5 +1,6 @@
 import GObject from "gi://GObject";
 import Gio from "gi://Gio";
+import GLib from "gi://GLib";
 import St from "gi://St";
 import {
   Extension,
@@ -8,7 +9,33 @@ import {
 import * as PanelMenu from "resource:///org/gnome/shell/ui/panelMenu.js";
 import * as PopupMenu from "resource:///org/gnome/shell/ui/popupMenu.js";
 import * as Main from "resource:///org/gnome/shell/ui/main.js";
+import * as MessageTray from "resource:///org/gnome/shell/ui/messageTray.js";
 import * as GameMode from "./client.js";
+
+class DoNotDisturbManager {
+  constructor() {
+    this._settings = null;
+  }
+
+  getSettings() {
+    if (!this._settings) {
+      this._settings = new Gio.Settings({ schema_id: "org.gnome.desktop.notifications" });
+    }
+    return this._settings;
+  }
+
+  turnDndOn() {
+    this.getSettings().set_boolean("show-banners", false);
+  }
+
+  turnDndOff() {
+    this.getSettings().set_boolean("show-banners", true);
+  }
+
+  dispose() {
+    this._settings = null;
+  }
+}
 
 const Indicator = GObject.registerClass(
   class Indicator extends PanelMenu.Button {
@@ -17,6 +44,8 @@ const Indicator = GObject.registerClass(
       this._extension = extension;
       this._settings = settings;
       this._client = null;
+      this._dndManager = new DoNotDisturbManager();
+      this._dndTimeoutId = null;
 
       this._addIcon();
       this._createMenuItems();
@@ -103,6 +132,17 @@ const Indicator = GObject.registerClass(
         this._settings.set_boolean("show-close-notification", value);
       });
       notificationSection.menu.addMenuItem(this._notificationCloseToggle);
+
+      notificationSection.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
+
+      this._doNotDisturbToggle = new PopupMenu.PopupSwitchMenuItem(
+        _("Enable Do Not Disturb Mode"),
+        this._settings.get_boolean("enable-do-not-disturb")
+      );
+      this._doNotDisturbToggle.connect("toggled", (item, value) => {
+        this._settings.set_boolean("enable-do-not-disturb", value);
+      });
+      notificationSection.menu.addMenuItem(this._doNotDisturbToggle);
     }
 
     _addVisibilitySettings() {
@@ -156,16 +196,79 @@ const Indicator = GObject.registerClass(
 
       if (isActive) {
         this._statusItem.label.set_text(_("GameMode is On"));
+        
         if (this._settings.get_boolean("show-launch-notification")) {
           Main.notify(_("GameMode Status"), _("GameMode is Enabled!"));
         }
+        
+        if (this._settings.get_boolean("enable-do-not-disturb")) {
+          this._scheduleDoNotDisturbActivation();
+        }
       } else {
         this._statusItem.label.set_text(_("GameMode is Off"));
+        
+        this._clearDoNotDisturbTimeout();
+        
+        if (this._settings.get_boolean("enable-do-not-disturb")) {
+          this._disableDoNotDisturb();
+        }
+        
         if (this._settings.get_boolean("show-close-notification")) {
           Main.notify(_("GameMode Status"), _("GameMode is Disabled!"));
         }
       }
+      
       this._updateIcon(isActive);
+    }
+
+    _scheduleDoNotDisturbActivation() {
+      this._clearDoNotDisturbTimeout();
+      
+      // schedule DND activation with a small delay to allow the gamemode enabled notification to be shown
+      this._dndTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 500, () => {
+        if (!this._destroyed) {
+          this._enableDoNotDisturb();
+        }
+        this._dndTimeoutId = null;
+        return false;
+      });
+    }
+
+    _clearDoNotDisturbTimeout() {
+      if (this._dndTimeoutId) {
+        GLib.source_remove(this._dndTimeoutId);
+        this._dndTimeoutId = null;
+      }
+    }
+
+    _enableDoNotDisturb() {
+      try {
+        if (this._destroyed) return;
+        
+        const currentShowBanners = this._dndManager.getSettings().get_boolean("show-banners");
+        if (currentShowBanners) {
+          // only change if it's not already in DND mode
+          this._previousShowBannersState = currentShowBanners;
+          this._extensionModifiedDoNotDisturb = true;
+          this._dndManager.turnDndOn();
+        }
+      } catch (e) {
+        log(`GameMode Extension: Failed to enable Do Not Disturb mode: ${e.message}`);
+      }
+    }
+
+    _disableDoNotDisturb() {
+      try {
+        if (this._destroyed) return;
+        
+        if (this._extensionModifiedDoNotDisturb && this._previousShowBannersState !== undefined) {
+          this._dndManager.getSettings().set_boolean("show-banners", this._previousShowBannersState);
+          this._previousShowBannersState = undefined;
+          this._extensionModifiedDoNotDisturb = false;
+        }
+      } catch (e) {
+        log(`GameMode Extension: Failed to disable Do Not Disturb mode: ${e.message}`);
+      }
     }
 
     _observeSettings() {
@@ -176,12 +279,14 @@ const Indicator = GObject.registerClass(
         this._iconVisibilityToggle.setToggleState(iconVisibilitySetting);
         this.visible = !iconVisibilitySetting;
       });
+      
       this._settings.connect("changed::show-launch-notification", () => {
         const showLaunchNotification = this._settings.get_boolean(
           "show-launch-notification"
         );
         this._notificationLaunchToggle.setToggleState(showLaunchNotification);
       });
+      
       this._settings.connect("changed::show-close-notification", () => {
         const showCloseNotification = this._settings.get_boolean(
           "show-close-notification"
@@ -200,6 +305,20 @@ const Indicator = GObject.registerClass(
         if (this._client && !this._client.current_state) {
           const inactiveColor = this._settings.get_string("inactive-color");
           this._icon.set_style('color: ' + inactiveColor + ';');
+        }
+      });
+      
+      this._settings.connect("changed::enable-do-not-disturb", () => {
+        const enableDoNotDisturb = this._settings.get_boolean("enable-do-not-disturb");
+        this._doNotDisturbToggle.setToggleState(enableDoNotDisturb);
+
+        if (this._client && this._client.current_state) {
+          if (enableDoNotDisturb) {
+            this._scheduleDoNotDisturbActivation();
+          } else {
+            this._clearDoNotDisturbTimeout();
+            this._disableDoNotDisturb();
+          }
         }
       });
     }
@@ -236,6 +355,26 @@ const Indicator = GObject.registerClass(
         );
         this._clientSection.menu.addMenuItem(clientItem);
       });
+    }
+
+    destroy() {
+      this._clearDoNotDisturbTimeout();
+
+      // restore DND state if it is modified by the extension
+      if (this._extensionModifiedDoNotDisturb && this._previousShowBannersState !== undefined) {
+        try {
+          this._dndManager.getSettings().set_boolean("show-banners", this._previousShowBannersState);
+        } catch (e) {
+          log(`GameMode Extension: Failed to restore Do Not Disturb state: ${e.message}`);
+        }
+      }
+      
+      if (this._dndManager) {
+        this._dndManager.dispose();
+      }
+      
+      this._destroyed = true;
+      super.destroy();
     }
   }
 );

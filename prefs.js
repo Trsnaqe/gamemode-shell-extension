@@ -35,6 +35,11 @@ export default class GameModePreferences extends ExtensionPreferences {
         title: _("Show Icon Only When Active"),
         subtitle: _("Whether to always show the indicator"),
         setting: 'show-icon-only-when-active'
+      },
+      {
+        title: _("Enable Do Not Disturb Mode"),
+        subtitle: _("Automatically enable Do Not Disturb mode when GameMode is active"),
+        setting: 'enable-do-not-disturb'
       }
     ];
 

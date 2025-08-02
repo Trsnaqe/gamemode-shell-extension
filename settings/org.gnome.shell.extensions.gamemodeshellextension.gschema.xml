@@ -13,6 +13,11 @@
       <default>false</default>
       <summary>Show icon only when GameMode is active</summary>
     </key>
+    <key name="enable-do-not-disturb" type="b">
+      <default>false</default>
+      <summary>Enable Do Not Disturb mode when GameMode is active</summary>
+      <description>Automatically enable Do Not Disturb mode to prevent notifications when GameMode is active</description>
+    </key>
     <key type="s" name="active-color">
       <default>"rgb(115,210,22)"</default>
       <summary>Active icon tint</summary>

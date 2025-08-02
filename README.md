@@ -12,6 +12,7 @@ This GNOME Shell extension provides a convenient indicator for Feral's GameMode.
 - **Active Clients Count**: Displays the number of active clients using GameMode.
 - **Client List**: Lists all active clients and their process names.
 - **Notification Settings**: Configure notifications for when GameMode is enabled or disabled.
+- **Do Not Disturb Mode**: Automatically enable GNOME's Do Not Disturb mode when GameMode is active to prevent notifications from interrupting gameplay. The extension intelligently preserves user-enabled Do Not Disturb settings and only restores the previous state if it was changed by the extension.
 
 ## Screenshots
 
@@ -104,6 +105,7 @@ Once installed, the extension will appear in the GNOME Shell top panel.
 - **Icon**: The icon indicates whether GameMode is currently active.
 - **Menu**: Click on the icon to open the menu, which displays the current status of GameMode, the number of active clients, and a list of these clients.
 - **Notifications**: Toggle notifications for when GameMode is enabled or disabled via the settings menu.
+- **Do Not Disturb**: Enable automatic Do Not Disturb mode when GameMode is active to prevent notifications from interrupting gameplay.
 
 ## Configuration
 
@@ -111,8 +113,9 @@ The extension includes settings to control notification preferences:
 
 1. **GameMode Enabled Notification**: Shows a notification when GameMode is turned on.
 2. **GameMode Disabled Notification**: Shows a notification when GameMode is turned off.
+3. **Enable Do Not Disturb Mode**: Automatically enables GNOME's Do Not Disturb mode when GameMode is active to prevent notifications from interrupting gameplay. The extension intelligently handles user preferences. If Do Not Disturb was already enabled by the user, the extension won't modify it. When GameMode becomes inactive, the extension only restores the previous state if it was the one that changed it.
 
-These settings can be accessed from the extension's menu.
+These settings can be accessed from the extension's menu or through the extension preferences.
 
 ## Development
 
