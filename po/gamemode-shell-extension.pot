@@ -1,0 +1,174 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-08-03 01:04+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../extension.js:43
+msgid "GameMode Status Indicator"
+msgstr ""
+
+#: ../extension.js:72 ../extension.js:208
+msgid "GameMode is Off"
+msgstr ""
+
+#: ../extension.js:78 ../extension.js:343
+msgid "Active Clients: 0"
+msgstr ""
+
+#: ../extension.js:114
+msgid "Show Notification when:"
+msgstr ""
+
+#: ../extension.js:119
+msgid "GameMode is Enabled"
+msgstr ""
+
+#: ../extension.js:128
+msgid "GameMode is Disabled"
+msgstr ""
+
+#: ../extension.js:139 ../prefs.js:40
+msgid "Enable Do Not Disturb Mode"
+msgstr ""
+
+#: ../extension.js:150
+msgid "Visibility Settings"
+msgstr ""
+
+#: ../extension.js:155 ../prefs.js:35
+msgid "Show Icon Only When Active"
+msgstr ""
+
+#: ../extension.js:163 ../prefs.js:53
+msgid "Color Settings"
+msgstr ""
+
+#: ../extension.js:171
+msgid "Settings Menu"
+msgstr ""
+
+#: ../extension.js:179
+msgid "GameMode is Not Available! Refer to GitHub to Install."
+msgstr ""
+
+#: ../extension.js:198
+msgid "GameMode is On"
+msgstr ""
+
+#: ../extension.js:201 ../extension.js:217
+msgid "GameMode Status"
+msgstr ""
+
+#: ../extension.js:201
+msgid "GameMode is Enabled!"
+msgstr ""
+
+#: ../extension.js:217
+msgid "GameMode is Disabled!"
+msgstr ""
+
+#: ../extension.js:349
+msgid "Active Clients: "
+msgstr ""
+
+#: ../prefs.js:12
+msgid "General"
+msgstr ""
+
+#: ../prefs.js:18
+msgid "Game Mode Settings"
+msgstr ""
+
+#: ../prefs.js:19
+msgid "Configure the behaviour of Game Mode Extension"
+msgstr ""
+
+#: ../prefs.js:25
+msgid "GameMode Enabled Notification"
+msgstr ""
+
+#: ../prefs.js:26
+#: ../settings/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml:6
+msgid "Show notification when GameMode is enabled"
+msgstr ""
+
+#: ../prefs.js:30
+msgid "GameMode Disabled Notification"
+msgstr ""
+
+#: ../prefs.js:31
+#: ../settings/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml:10
+msgid "Show notification when GameMode is disabled"
+msgstr ""
+
+#: ../prefs.js:36
+msgid "Whether to always show the indicator"
+msgstr ""
+
+#: ../prefs.js:41
+msgid "Automatically enable Do Not Disturb mode when GameMode is active"
+msgstr ""
+
+#: ../prefs.js:54
+msgid "Configure the colors of the GameMode indicator"
+msgstr ""
+
+#: ../prefs.js:59
+msgid "Active Color"
+msgstr ""
+
+#: ../prefs.js:60
+msgid "Color when GameMode is active"
+msgstr ""
+
+#: ../prefs.js:87
+msgid "Inactive Color"
+msgstr ""
+
+#: ../prefs.js:88
+msgid "Color when GameMode is inactive"
+msgstr ""
+
+#: ../settings/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml:14
+msgid "Show icon only when GameMode is active"
+msgstr ""
+
+#: ../settings/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml:18
+msgid "Enable Do Not Disturb mode when GameMode is active"
+msgstr ""
+
+#: ../settings/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml:19
+msgid ""
+"Automatically enable Do Not Disturb mode to prevent notifications when "
+"GameMode is active"
+msgstr ""
+
+#: ../settings/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml:23
+msgid "Active icon tint"
+msgstr ""
+
+#: ../settings/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml:24
+msgid "The color to use when GameMode is active."
+msgstr ""
+
+#: ../settings/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml:28
+msgid "Inactive icon tint"
+msgstr ""
+
+#: ../settings/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml:29
+msgid "The color to use when GameMode is inactive."
+msgstr ""
