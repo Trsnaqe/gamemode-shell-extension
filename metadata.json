@@ -6,10 +6,12 @@
     "45",
     "46",
     "47",
-    "48"
+    "48",
+    "49"
   ],
-  "settings-schema":"org.gnome.shell.extensions.gamemodeshellextension",
+  "settings-schema": "org.gnome.shell.extensions.gamemodeshellextension",
   "url": "https://github.com/trsnaqe/gamemode-shell-extension",
   "donations": {
     "buymeacoffee": "trsnaqe"
-}}
+  }
+}
