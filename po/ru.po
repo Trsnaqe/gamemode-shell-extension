@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-03 01:04+0300\n"
+"POT-Creation-Date: 2025-12-11 08:19+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Fraxinus Acer\n"
 "Language-Team: \n"
@@ -79,6 +79,10 @@ msgstr "GameMode выключен!"
 #: ../extension.js:349
 msgid "Active Clients: "
 msgstr "Активные клиенты: "
+
+#: ../extension.js:351
+msgid "Client"
+msgstr ""
 
 #: ../prefs.js:12
 msgid "General"

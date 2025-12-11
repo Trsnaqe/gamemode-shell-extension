@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-03 01:04+0300\n"
-"PO-Revision-Date: 2025-12-11 07:58+0100\n"
+"POT-Creation-Date: 2025-12-11 08:19+0100\n"
+"PO-Revision-Date: 2025-12-11 08:20+0100\n"
 "Last-Translator: Christian Lauinger <christian@lauinger-clan.de>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -65,8 +65,8 @@ msgstr "Einstellungsmenü"
 #: ../extension.js:179
 msgid "GameMode is Not Available! Refer to GitHub to Install."
 msgstr ""
-"GameMode ist nicht verfügbar! Informationen zur Installation finden "
-"Sie auf GitHub."
+"GameMode ist nicht verfügbar! Informationen zur Installation finden Sie auf "
+"GitHub."
 
 #: ../extension.js:198
 msgid "GameMode is On"
@@ -87,6 +87,10 @@ msgstr "GameMode ist Deaktiviert!"
 #: ../extension.js:349
 msgid "Active Clients: "
 msgstr "Aktive Klienten: "
+
+#: ../extension.js:351
+msgid "Client"
+msgstr "Klient"
 
 #: ../prefs.js:12
 msgid "General"
@@ -125,8 +129,8 @@ msgstr "Ob der Indikator immer angezeigt werden soll"
 #: ../prefs.js:41
 msgid "Automatically enable Do Not Disturb mode when GameMode is active"
 msgstr ""
-"Aktivieren Sie automatisch den Modus „Nicht stören“, wenn der "
-"Spielmodus aktiv ist"
+"Aktivieren Sie automatisch den Modus „Nicht stören“, wenn der Spielmodus "
+"aktiv ist"
 
 #: ../prefs.js:54
 msgid "Configure the colors of the GameMode indicator"
@@ -154,16 +158,15 @@ msgstr "Symbol nur anzeigen, wenn GameMode aktiv ist"
 
 #: ../settings/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml:18
 msgid "Enable Do Not Disturb mode when GameMode is active"
-msgstr ""
-"Aktiviere den Modus „Nicht stören“, wenn der Spielmodus aktiv ist"
+msgstr "Aktiviere den Modus „Nicht stören“, wenn der Spielmodus aktiv ist"
 
 #: ../settings/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml:19
 msgid ""
 "Automatically enable Do Not Disturb mode to prevent notifications when "
 "GameMode is active"
 msgstr ""
-"Aktiviere automatisch den Modus „Nicht stören“, um Benachrichtigungen "
-"zu verhindern, wenn der Spielmodus aktiv ist"
+"Aktiviere automatisch den Modus „Nicht stören“, um Benachrichtigungen zu "
+"verhindern, wenn der Spielmodus aktiv ist"
 
 #: ../settings/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml:23
 msgid "Active icon tint"
