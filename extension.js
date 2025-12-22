@@ -346,12 +346,12 @@ const Indicator = GObject.registerClass(
 
       const clientCount = this._client.process_map.size;
       this._clientSection.label.set_text(
-        _("Active Clients: " + (clientCount || 0))
+        _("Active Clients: ") + (clientCount || 0)
       );
-
+      const strClient = _("Client");
       this._client.process_map.forEach((client, index) => {
         const clientItem = new PopupMenu.PopupMenuItem(
-          `Client ${index}: ${client.name}`
+          `${strClient} ${index}: ${client.name}`
         );
         this._clientSection.menu.addMenuItem(clientItem);
       });
