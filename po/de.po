@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-11 08:19+0100\n"
-"PO-Revision-Date: 2025-12-11 08:20+0100\n"
+"PO-Revision-Date: 2025-12-23 16:35+0100\n"
 "Last-Translator: Christian Lauinger <christian@lauinger-clan.de>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -24,7 +24,7 @@ msgstr "GameMode Status Indikator"
 
 #: ../extension.js:72 ../extension.js:208
 msgid "GameMode is Off"
-msgstr "GameMode istAus"
+msgstr "GameMode ist Aus"
 
 #: ../extension.js:78 ../extension.js:343
 msgid "Active Clients: 0"
