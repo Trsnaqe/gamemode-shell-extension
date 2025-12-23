@@ -1,0 +1,180 @@
+# ITALIAN TRANSLATION.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# ALBANO BATTISTELLA <ALBANOBATTISTELLA@GMAIL.COM>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-11 08:19+0100\n"
+"PO-Revision-Date: 2025-12-23 21:19+0100\n"
+"Last-Translator: Albano Battistella <albanobattistella@gmail.com>\n"
+"Language-Team: Italian <LL@li.org>\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset==UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+  
+#: ../extension.js:43  
+msgid "GameMode Status Indicator"  
+msgstr "Indicatore di stato di GameMode"  
+  
+#: ../extension.js:72 ../extension.js:208  
+msgid "GameMode is Off"  
+msgstr "GameMode è disattivato"  
+  
+#: ../extension.js:78 ../extension.js:343  
+msgid "Active Clients: 0"  
+msgstr "Client attivi: 0"  
+  
+#: ../extension.js:114  
+msgid "Show Notification when:"  
+msgstr "Mostra notifica quando:"  
+  
+#: ../extension.js:119  
+msgid "GameMode is Enabled"  
+msgstr "GameMode è abilitato"  
+  
+#: ../extension.js:128  
+msgid "GameMode is Disabled"  
+msgstr "GameMode è disabilitato"  
+  
+#: ../extension.js:139 ../prefs.js:40  
+msgid "Enable Do Not Disturb Mode"  
+msgstr "Abilita la modalità Non disturbare"  
+  
+#: ../extension.js:150  
+msgid "Visibility Settings"  
+msgstr "Impostazioni di visibilità"  
+  
+#: ../extension.js:155 ../prefs.js:35  
+msgid "Show Icon Only When Active"  
+msgstr "Mostra l'icona solo quando è attivo"  
+  
+#: ../extension.js:163 ../prefs.js:53  
+msgid "Color Settings"  
+msgstr "Impostazioni colore"  
+  
+#: ../extension.js:171  
+msgid "Settings Menu"  
+msgstr "Menu delle impostazioni"  
+  
+#: ../extension.js:179  
+msgid "GameMode is Not Available! Refer to GitHub to Install."  
+msgstr "GameMode non è disponibile! Fare riferimento a GitHub per l'installazione."  
+  
+#: ../extension.js:198  
+msgid "GameMode is On"  
+msgstr "GameMode è attivo"  
+  
+#: ../extension.js:201 ../extension.js:217  
+msgid "GameMode Status"  
+msgstr "Stato di GameMode"  
+  
+#: ../extension.js:201  
+msgid "GameMode is Enabled!"  
+msgstr "GameMode è abilitato!"  
+  
+#: ../extension.js:217  
+msgid "GameMode is Disabled!"  
+msgstr "GameMode è disabilitato!"  
+  
+#: ../extension.js:349  
+msgid "Active Clients: "  
+msgstr "Client attivi: "  
+  
+#: ../extension.js:351  
+msgid "Client"  
+msgstr "Client"  
+  
+#: ../prefs.js:12  
+msgid "General"  
+msgstr "Generale"  
+  
+#: ../prefs.js:18  
+msgid "Game Mode Settings"  
+msgstr "Impostazioni di Game Mode"  
+  
+#: ../prefs.js:19  
+msgid "Configure the behaviour of Game Mode Extension"  
+msgstr "Configura il comportamento dell'estensione Game Mode"  
+  
+#: ../prefs.js:25  
+msgid "GameMode Enabled Notification"  
+msgstr "Notifica di abilitazione di GameMode"  
+  
+#: ../prefs.js:26  
+#: ../settings/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml:6  
+msgid "Show notification when GameMode is enabled"  
+msgstr "Mostra una notifica quando GameMode è abilitato"  
+  
+#: ../prefs.js:30  
+msgid "GameMode Disabled Notification"  
+msgstr "Notifica di disabilitazione di GameMode"  
+  
+#: ../prefs.js:31  
+#: ../settings/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml:10  
+msgid "Show notification when GameMode is disabled"  
+msgstr "Mostra una notifica quando GameMode è disabilitato"  
+  
+#: ../prefs.js:36  
+msgid "Whether to always show the indicator"  
+msgstr "Mostra sempre l'indicatore"  
+  
+#: ../prefs.js:41  
+msgid "Automatically enable Do Not Disturb mode when GameMode is active"  
+msgstr "Abilita automaticamente la modalità Non disturbare quando GameMode è attivo"  
+  
+#: ../prefs.js:54  
+msgid "Configure the colors of the GameMode indicator"  
+msgstr "Configura i colori dell'indicatore di GameMode"  
+  
+#: ../prefs.js:59  
+msgid "Active Color"  
+msgstr "Colore attivo"  
+  
+#: ../prefs.js:60  
+msgid "Color when GameMode is active"  
+msgstr "Colore quando GameMode è attivo"  
+  
+#: ../prefs.js:87  
+msgid "Inactive Color"  
+msgstr "Colore inattivo"  
+  
+#: ../prefs.js:88  
+msgid "Color when GameMode is inactive"  
+msgstr "Colore quando GameMode è inattivo"  
+  
+#: ../settings/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml:14  
+msgid "Show icon only when GameMode is active"  
+msgstr "Mostra l'icona solo quando GameMode è attivo"  
+  
+#: ../settings/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml:18  
+msgid "Enable Do Not Disturb mode when GameMode is active"  
+msgstr "Abilita la modalità Non disturbare quando GameMode è attivo"  
+  
+#: ../settings/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml:19  
+msgid ""  
+"Automatically enable Do Not Disturb mode to prevent notifications when "  
+"GameMode is active"  
+msgstr ""  
+"Abilita automaticamente la modalità Non disturbare per prevenire notifiche quando "  
+"GameMode è attivo"  
+  
+#: ../settings/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml:23  
+msgid "Active icon tint"  
+msgstr "Tinta dell'icona attiva"  
+  
+#: ../settings/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml:24  
+msgid "The color to use when GameMode is active."  
+msgstr "Il colore da usare quando GameMode è attivo."  
+  
+#: ../settings/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml:28  
+msgid "Inactive icon tint"  
+msgstr "Tinta dell'icona inattiva"  
+  
+#: ../settings/org.gnome.shell.extensions.gamemodeshellextension.gschema.xml:29  
+msgid "The color to use when GameMode is inactive."  
+msgstr "Il colore da usare quando GameMode è inattivo."  
