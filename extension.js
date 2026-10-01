@@ -349,6 +349,9 @@ const Indicator = GObject.registerClass(
     destroy() {
       this._clearDoNotDisturbTimeout();
 
+      // untrack our handlers before close() wipes the client's connections,
+      // otherwise the signal tracker fails to disconnect them on destroy
+      this._client?.disconnectObject(this);
       this._client?.close();
       this._client = null;
 
