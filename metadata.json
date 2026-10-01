@@ -3,7 +3,7 @@
   "description": "GameMode Status Indicator for GNOME Shell!",
   "uuid": "gamemodeshellextension@trsnaqe.com",
   "gettext-domain": "gamemode-shell-extension",
-  "shell-version": ["45", "46", "47", "48", "49", "50"],
+  "shell-version": ["45", "46", "47", "48", "49", "50", "51"],
   "settings-schema": "org.gnome.shell.extensions.gamemodeshellextension",
   "url": "https://github.com/trsnaqe/gamemode-shell-extension",
   "donations": {

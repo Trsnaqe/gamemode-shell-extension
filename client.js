@@ -36,6 +36,7 @@ export class Client extends EventEmitter {
     super();
     this._readyCallback = readyCallback;
     this._proxy = null;
+    this._cancellable = new Gio.Cancellable();
     this.process_map = new Map();
     this.client_count = 0;
     this.current_state = false;
@@ -51,19 +52,22 @@ export class Client extends EventEmitter {
       GAMEMODE_DBUS_NAME,
       GAMEMODE_DBUS_PATH,
       GAMEMODE_DBUS_IFACE,
-      null,
+      this._cancellable,
       this._onProxyReady.bind(this)
     );
   }
 
   _onProxyReady(o, res) {
     try {
-      this._proxy = Gio.DBusProxy.new_finish(res);
+      const proxy = Gio.DBusProxy.new_finish(res);
+      if (this._cancellable.is_cancelled()) return;
+      this._proxy = proxy;
       this._connectSignals();
       this._updateClientCount();
       if (this._readyCallback) this._readyCallback(this);
     } catch (e) {
-      console.log(`Failed to initialize GameMode client: ${e.message}`);
+      if (!this._cancellable.is_cancelled())
+        console.log(`Failed to initialize GameMode client: ${e.message}`);
     }
   }
 
@@ -92,6 +96,7 @@ export class Client extends EventEmitter {
 
   async _onGameRegistered(proxy, sender_name, [pid, objectPath]) {
     const process_name = await this._getProcessNameByPid(pid);
+    if (this._cancellable.is_cancelled()) return;
     if (process_name)
       this.process_map.set(pid, { name: process_name, path: objectPath });
     this.emit("game-registered", pid, objectPath);
@@ -126,6 +131,7 @@ export class Client extends EventEmitter {
   }
 
   close() {
+    this._cancellable.cancel();
     this.disconnectAll();
     if (this._proxy) {
       this._proxy.disconnect(this._propsChangedId);
@@ -133,6 +139,8 @@ export class Client extends EventEmitter {
       this._proxy.disconnectSignal(this._unregisteredId);
       this._proxy = null;
     }
+    this._readyCallback = null;
+    this.process_map.clear();
   }
 
   get clientCount() {
@@ -182,10 +190,10 @@ export class Client extends EventEmitter {
         flags:
           Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDERR_PIPE,
       });
-      await subprocess.init(null);
+      await subprocess.init(this._cancellable);
 
       const stdout = await new Promise((resolve, reject) => {
-        subprocess.communicate_utf8_async(null, null, (proc, res) => {
+        subprocess.communicate_utf8_async(null, this._cancellable, (proc, res) => {
           try {
             const [, out] = proc.communicate_utf8_finish(res);
             resolve(out);
@@ -197,7 +205,8 @@ export class Client extends EventEmitter {
 
       return stdout.trim() || null;
     } catch (e) {
-      console.log(`Error getting process name for PID ${pid}: ${e.message}`);
+      if (!this._cancellable.is_cancelled())
+        console.log(`Error getting process name for PID ${pid}: ${e.message}`);
     }
     return null;
   }

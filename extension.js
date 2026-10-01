@@ -349,6 +349,9 @@ const Indicator = GObject.registerClass(
     destroy() {
       this._clearDoNotDisturbTimeout();
 
+      this._client?.close();
+      this._client = null;
+
       // restore DND state if it is modified by the extension
       if (this._extensionModifiedDoNotDisturb && this._previousShowBannersState !== undefined) {
         try {
